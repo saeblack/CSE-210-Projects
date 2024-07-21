@@ -1,50 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace OnlineOrderingSystem
 {
     public class _Order
     {
-        private List<Product> _products;
         private Customer _customer;
+        private List<Product> _products;
+        private string _packingLabel;
+        private string _shippingLabel;
 
-        public _Order(Customer _customer)
+        public _Order(Customer customer)
         {
-            this._customer = _customer;
-            _products = new List<Product>();
+            this._customer = customer;
+            this._products = new List<Product>();
+            this._packingLabel = GenerateUniqueLabel("P");
+            this._shippingLabel = GenerateUniqueLabel("S");
         }
 
-        public void AddProduct(Product _product)
+        public void AddProduct(Product product)
         {
-            _products.Add(_product);
+            _products.Add(product);
         }
 
         public decimal GetTotalCost()
         {
-            decimal _totalCost = 0;
-            foreach (var _product in _products)
-            {
-                _totalCost += _product.GetTotalCost();
-            }
-
-            _totalCost += _customer.IsInUSA() ? 5 : 35;
-            return _totalCost;
+            return _products.Sum(product => product.GetTotalCost());
         }
 
         public string GetPackingLabel()
         {
-            StringBuilder _packingLabel = new StringBuilder();
-            foreach (var _product in _products)
-            {
-                _packingLabel.AppendLine(_product.ToString());
-            }
-            return _packingLabel.ToString();
+            return _packingLabel;
         }
 
         public string GetShippingLabel()
         {
-            return _customer.ToString();
+            return _shippingLabel;
+        }
+
+        private string GenerateUniqueLabel(string prefix)
+        {
+            return $"{prefix}-{Guid.NewGuid().ToString()}";
         }
     }
 }

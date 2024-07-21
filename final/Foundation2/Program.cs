@@ -32,9 +32,9 @@ class Program
     static void DisplayOrderDetails(_Order _order)
     {
         Console.WriteLine($"Order {_order.GetHashCode()} Total Cost:");
-        Console.WriteLine($"Packing Label:8765rt4");
+        Console.WriteLine($"Packing Label:");
         Console.WriteLine($"{_order.GetPackingLabel()}");
-        Console.WriteLine($"Shipping Label:kju7890rt");
+        Console.WriteLine($"Shipping Label:");
         Console.WriteLine($"{_order.GetShippingLabel()}");
         Console.WriteLine($"Total Cost: {_order.GetTotalCost():C}");
         Console.WriteLine();
